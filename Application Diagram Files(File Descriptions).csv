@@ -1,0 +1,18 @@
+ID,Name,Description,Producer,Consumer,Location,Comment
+EOD1,SFTP,Greg Stellate has an SFTP server that gets the files from DTCC and then copies it to a server in the TSS network.,DTCC,Greg S script,,
+EOD2,DTCC EOD Files,This is the file share that is inside of the TSS infrastructure.  In this server reside the DTCC raw files,Greg S Script,Seamans Copy Script,,
+EOD3,SFTP,Greg Stellate has an SFTP server that gets the files from DTCC and then copies it to a server in the TSS network.,BONY,Greg S script,,
+EOD4,BONY EOD Files,This is the file share that is inside of the TSS infrastructure.  In this server reside the BONY raw files,Greg S Script,Seamans Copy Script,,
+EOD5,Files from iClear,iClear needs to produce end of day files for the GL and these are them,iClear,MS Dynamics,,
+EOD6,Seamans SFTP,The location for where Seamans Consolidated Stock Record gets the data ,Seamans Copy Script,Seamans CSR,10.224.15.82\BR,
+EOD7,iClear - Seamans CSR,iClear produces files for Seaman's consolidated stock record.  iClear processes put these here for consumption by Seamans Consolidated stock record,iClear Seamans Process,Seamans CSR,10.224.15.82\Equities,
+EOD8,Inter. Files ,These files are needed for the Seamans stock record from the international side and they can't be automated so they are put there manually daily,International Operations,Seamans Copy Script,,
+EOD9,BR Files to Seaman CSR,These are the fixed income files that need to go to Seaman's CSR.,Broadridge End of Day,Seamans Copy Script,10.224.15.97\NYBR,
+EOD10,Seamans CSR Results,When Seamans CSR runs ,Seamans Copy Script,File System,,
+EOD11,Seamans CSR Results,CSR Results,File System,Access process for the liquidity report,,for the liquidity report
+EOD12,BR EOD to GL,The GL file that goes from Broadridge to the GL,Broadridge End of Day,MS Dynamics,,
+EOD13,Focus Reports,The focus reports that are driven off the Broadridge end of day report,Steve P,SEC,,This is combined from iClear and Broadridge Data
+EOD14,Failed to Deliver / Receive,an email that comes out with a report from iClear.,iClear,Home Office,,
+EOD15,BBG Mars Reports,This is a portfolio report that the risk team uses for its file generation,,,,
+EOD16,Loannet EOD Files,These are put into the home office reports,Loannet,Credit Risk,,
+,,,,,,
