@@ -1,0 +1,51 @@
+
+CRUD_FI_trade_FRM_GUI
+
+Data Flow:
+
+1.Get trade from table    FROM  dw.dw.irep.Cusfilep 
+
+2.Mapping  tradeLoadConfig.dbo.BR_ICBC_AcountMapping 
+
+3Insert updated trade into table Trade_GUI
+
+Exec Type: 
+(1)."A"
+(2)."C"
+(3)."U"
+
+
+	  ---date 12/15/2022  all client notice rejected trade shold be not send for cancelation 
+	  ---all amenment from reject queue for rejected trade will receive as Exec type U
+
+
+
+
+
+
+
+
+Step2
+insert into dbo.trade_gui(
+BRExecID,CanceledBy,processstatus)
+select @BRExecID,@username,0
+
+INSERT INTO dw.tradefeed.GUITrade
+ FROM [TradeLoadstaging].[dbo].[Trade_GUI]
+----All columns except 
+      ,[source]
+      ,[AccountType]
+      ,[BlotterCode]
+      ,[markup_down]
+      ,[source_BRID]
+      ,[Prevailing_Market_Price]
+      ,[Non_Institutional_Flag]
+      ,[markup_down_percentage]
+      ,[PMPStep]
+      ,[Rate]
+      ,[daycount]
+      ,[RetunrDate]
+      ,[StartDate]
+      ,[Haircut]
+      ,[TrailorCode]
+      ,[fi_blottercode]
