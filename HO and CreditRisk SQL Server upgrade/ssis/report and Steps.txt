@@ -1,0 +1,88 @@
+https://bk-ssweb-p01.icbkfs.us.local/SecretServer/app/#/dashboard/tabs
+
+https://outlook.office.com/mail/
+
+
+http://icbcfslssdw1/reports/pages/folder.apsx
+
+
+\\10.224.18.26\common\DIST\HeadOffice\Daily_rpts\daily_rpts\2025\202502
+
+
+http://icbcfsl2052a/Reports/browse/RiskReports
+
+
+
+
+
+FS DW Load job:
+EXECUTE msdb.dbo.sp_start_job 'Generate CASHLD'
+DW MASTER Load
+
+--DECLARE @command varchar(1000) = '';
+-- DECLARE @sourcePathA varchar(128) = '\\Icbcfslsad31\common\DIST\HeadOffice\Common CSV Load\outbound\SSRS Reports\Production\';
+-- DECLARE @destinationPathB varchar(128) = '\\icbcfslsad31\Common\CMEEOD\';
+-- DECLARE @destinationPathC varchar(128) = 'C:\Staging\Local\FolderC\';
+-- DECLARE @fileName1 varchar(128) = 'DVM_Margin_Report_4071';
+-- DECLARE @fileName2 varchar(128) = 'DVM_Margin_Report_4072';
+-- Declare @FileExtension varchar(10)  
+-- DECLARE @FileExt nvarchar(5) = '.xls';
+ 
+--  SELECT @FileExtension = '_'+ COBDate_MMDDYYYY   FROM [FS DW].[admin].[v_ProcessControlDate]
+  
+  
+
+    
+-- SET @command = 'copy /Y "' + @sourcePathA + @fileName1 + @FileExtension + @FileExt + '" "' + @destinationPathB ;
+-- EXEC master..xp_cmdshell @command, no_output;
+-- SET @command =  'copy /Y "' + @sourcePathA + @fileName2 + @FileExtension + @FileExt + '" "' + @destinationPathB ;
+-- EXEC master..xp_cmdshell @command, no_outpu
+
+
+
+--------------------Load CSV file
+---1. package
+2222.Update Disabled File
+Declare @Date datetime
+  
+  select @Date =  LastLoad_COBdate  from [ETL_Load].[admin].[Flatfile_info]
+   where [ETLlLoadFile_ID] in ( 22 )
+   
+  --- select  @Date 
+  
+  update [ETL_Load].[admin].[Flatfile_info]
+   set  LastLoad_COBdate = @Date
+    where [ETLlLoadFile_ID] in ( 23,24,56,57)
+
+
+
+
+------------------
+Declare @D datetime
+    
+SELECT  
+ @D = COBDate_YYYYMMDD 
+fROM [fs dw].[admin].[v_ProcControlDate]
+ 
+exec [dbo].[LOAD_CREDITRISK_ALLDATA]   @D
+
+
+BBG_Check:
+Exec Load_BBG_ExtraFields_BBG_PRice
+
+
+-------------------Load daily Equity position:
+exec dbo.load_equityPosition   
+
+----------------------Trade Margin  Report Data Load-Report Export
+\FS DW Load\FS Fact Load\Report BRM Margin Detail calc
+MCA Report Disable:  
+update  [ETL_Load].[admin].[Report_subscription]
+set EnableLoad = 0
+where Report_Id = 24
+
+\FS DW Load\FS Stg Load\SSRS_Report_Subscription_Load
+MCA Report Disable again:
+update  [ETL_Load].[admin].[Report_subscription]
+set EnableLoad = 0
+where Report_Id = 24

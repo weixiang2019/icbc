@@ -1,0 +1,113 @@
+18.Also create CSV files into the same folder
+
+
+--- Create CSV format files run under FSInterface database
+
+ 
+
+TssFail
+
+SecLEndOS
+
+TssTrans
+
+ 
+
+use FSInterface
+
+exec [dbo].[up_Dump_SecLendOS] '20240627';
+
+exec [dbo].up_Dump_TSSFail '20240627';
+
+exec [dbo].[up_Dump_TSSTrans] '20240627';
+
+ 
+
+ 
+
+ 
+
+Run Reports FS Dw database and save as excel.
+Total two  Excel.
+
+ 
+
+OPS Fail
+
+--include two sheet: Summary and Detail
+
+-- Tab# 1 Summary
+
+select TAG_CAGE_NBR as "Trade ID", Trader as "Trading Account", ISO_Code as Currency, BR_Acct8 as "Contra Account", Company_Name as Counterparty, Cusip, Rec_Del_Lit as "Buy Sell", Fail_Bus_Days as "Biz Days", MTM_Amt as "Mkt Value", Signed_USD_Fail_Amt as "End Money (USD)", USD_Exposure as Exposure, YAP_Acct as "Original Contra Account", BPS_YAP_Name as "Original Counterparty"
+
+From [10.224.15.74].[Reports].[Extract].[TMP_HO_FAILS_Wk]
+
+where [FileCOBDate] = '2024-12-30 00:00:00.000'
+
+Order by TAG_CAGE_NBR;
+
+ 
+
+--- Tab# 2 Detail
+
+select TAG_CAGE_NBR as "Trade ID", Trader as "Trading Account", ISO_Code as Currency, BR_Acct8 as "Contra Account", Company_Name as Counterparty, Cusip, Rec_Del_Lit as "Buy Sell", Signed_Qty as PAR, Signed_USD_Fail_Amt as "End Money USD", SettleDate as "Settle Date", Fail_Bus_Days as "Biz Days", Current_Factor as Factor, FactorMM as "Factor Month", 0 as BBGPrice, '' as BBGPriceDate, SecPrice as Broadridge_Mkt_Price, PriceDate as Broadridge_Mkt_Price_Date, PriceSource as Broadridge_Price_Source, MTM_Amt as Broadridge_Mkt_Val, BBGMktVal, PriceDiff, DifferencePct, DifferenceRange, YAP_Acct as "Original Contra Account", BPS_YAP_Name as "Original Counterparty"
+
+From [10.224.15.74].[Reports].[Extract].[TMP_HO_FAILS_Wk]
+
+where [FileCOBDate] = '2024-12-30 00:00:00.000'
+
+Order by TAG_CAGE_NBR;
+
+ 
+
+Risk Fails
+
+SELECT NewRef, RefNo, Type, HO_TradeType,TradingAccount, CUSIP, SecurityDesc,TradeDate, AsOF_TradeDate, SettlementDate, ReturnDate, TradeType, ContraAccount, ContraShortName, NameAddr1, Original_Client_Acct, Original_Client_SN, Original_Client_Name, Par, Principal, BuySell, RepoRate, EXCLUDE, RESCOUNTRY, RISKCOUNTRY, INDUSTRY, CUSTTYPE, RELATIONSHIP, CustTypeDesc, CountryRating
+
+FROM [10.224.15.74].[Reports].[Extract].[TMP_HO_EXOPEN]
+
+where [FileCOBDate] = '2024-12-30'
+
+ORDER BY Exclude, RefNo, ContraShortName, AsOF_TradeDate; ---- 629
+
+ 
+
+Set the flag true and Run  HO Load Db, Gen Rpt & Data Suite job successfully.
+update [FS DW].[etl].[SSIS Configurations]
+
+set ConfiguredValue = 'True'
+
+where ConfigurationFilter = 'HO'
+
+and PackagePath = '\Package.Variables[User::SendFilesAnyway].Properties[Value]'
+
+ 
+
+Set the flag false and run the job HO Load Db, Gen Rpt & Data Suite  one more time just make sure report will not generate multiple times.
+update [FS DW].[etl].[SSIS Configurations]
+
+set ConfiguredValue = 'False'
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Run HO Report and save as excel in Daily HO Reports folder as Excels. Please see attached HO report for Formulas.
+
+--The formular of Excel sheet Variances:
+
+L4-L17  =O4-S4
+
+L4, L8, L14, L16, L17 yellow highlighted
+
+S6 ='Receivable Rebates'!D7
+
+S8  ='Loan And Borrow'!T81
+
+S14 ='Loan And Borrow'!T82
