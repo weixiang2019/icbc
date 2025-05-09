@@ -1,0 +1,10 @@
+P:\Bhavesh\MSMQ_Comm\Database1\Database1\bin\Debug\MSMQ_COMM.dacpac
+P:\Bhavesh\MSMQ_Comm\Database1\Database1\obj\Debug\Model.xml
+P:\Bhavesh\MSMQ_Comm\Database1\Database1\obj\Debug\refactor.xml
+P:\Bhavesh\MSMQ_Comm\Database1\Database1\obj\Debug\postdeploy.sql
+P:\Bhavesh\MSMQ_Comm\Database1\Database1\obj\Debug\predeploy.sql
+P:\Bhavesh\MSMQ_Comm\Database1\Database1\obj\Debug\MSMQ_COMM.sqlprojResolveAssemblyReference.cache
+P:\Bhavesh\MSMQ_Comm\Database1\Database1\bin\Debug\MXL_TRN.dll
+P:\Bhavesh\MSMQ_Comm\Database1\Database1\bin\Debug\MXL_TRN.pdb
+P:\Bhavesh\MSMQ_Comm\Database1\Database1\obj\Debug\MXL_TRN.dll
+P:\Bhavesh\MSMQ_Comm\Database1\Database1\obj\Debug\MXL_TRN.pdb

@@ -1,0 +1,13 @@
+00:05:52	bkpat:	trigger on the table which loads the trade into the dbo.trade table
+00:06:18	bkpat:	once the trade in dbo.trade table it will trigger to send message on MSMQ on which is on fix server 10.6
+00:07:10	bkpat:	messageinbound_audit
+00:07:30	bkpat:	log for either successfully booked or if there error it will show as error message
+00:08:08	bkpat:	it goes as fix message
+00:09:54	bkpat:	portal side table in trade_gui
+00:10:48	bkpat:	we centralize data from both table into DW.tradefeed.fixedincome table
+00:10:55	bkpat:	from there it appears in portal
+00:12:17	bkpat:	there is job on 10.13 table job name is "load tradefeed data" which runs every 1 minute to load data from 10.15 to 10.13
+00:16:10	bkpat:	once trade in trade processing queue all trades either from Gresham or portal everything can be cancel or rebill.
+00:38:47	Gokce Ozkaynak:	Leaving to join my 1:30 meeting
+00:41:50	George Ma:	Reacted to "Leaving to join my 1..." with 👍
+01:00:41	DanielYin:	I have a hard cut off
